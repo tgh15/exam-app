@@ -38,7 +38,7 @@
                                 <ul>
                                     @foreach($errors->all() as $error)
                                         <li>
-                                            <div class="bg-red-400 border text-sm text-red-500 rounded-md p-4" role="alert">
+                                            <div class="bg-red-400 border text-sm text-white rounded-md p-4" role="alert">
                                                 <span class="font-bold">Danger</span> {{$error}}
                                               </div>
                                         </li>

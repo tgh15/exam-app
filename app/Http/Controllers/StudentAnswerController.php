@@ -38,6 +38,7 @@ class StudentAnswerController extends Controller
         // $validate = $request->validate([
         //     'answer_id' => 'required|exists:course_answers,id'
         // ]);
+        // return response()->json($request);
 
         DB::beginTransaction();
 
@@ -55,7 +56,7 @@ class StudentAnswerController extends Controller
                 $exam_session->student_answer()->create([
                     'user_id' => Auth::id(),
                     'course_question_id' => $student_answer['question_id'],
-                    'answer_id' => $student_answer['answer_id'],
+                    'course_answer_id' => $student_answer['answer_id'],
                     'answer' => $answerValue
                 ]);
             }

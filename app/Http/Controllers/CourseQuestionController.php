@@ -85,26 +85,27 @@ class CourseQuestionController extends Controller
     {
         //
         $course = $courseQuestion->course;
+        // return response()->json($courseQuestion);
         return view('admin.questions.edit', [
             'courseQuestion' => $courseQuestion,
             'course' => $course
         ]);
     }
-
+    
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, CourseQuestion $courseQuestion)
     {
         //
+        // return response()->json($request);
         $validate = $request->validate([
             'question' => 'required|string',
             'answers' => 'required|array',
             'question_type' => 'required|string',
             'answers.*' => 'required|string',
-            'correct_answer.*' => 'required|integer'
+            'correct_answer' => 'required|integer'
         ]);
-        // return response()->json($validate);
         
         DB::beginTransaction();
 
@@ -118,9 +119,10 @@ class CourseQuestionController extends Controller
             $courseQuestion->answers()->delete();
 
             foreach($request->answers as $index => $answerText){
+                $isCorrect = ($request->correct_answer == $index);
                 $courseQuestion->answers()->create([
                     'answer' => $answerText,
-                    'is_correct' => $request['correct_answer-'.$index]
+                    'is_correct' =>  $isCorrect
                 ]);
             }
 

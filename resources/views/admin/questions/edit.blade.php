@@ -41,12 +41,12 @@
                         <input name="answers[]" value="{{$answer->answer}}" type="text" class="rounded-md border-gray-200 w-80" placeholder="answer for option {{chr(65 + $i)}}"> 
                         <div class="flex gap-2">
 
-                            @for($idx = 0; $idx < 6; $idx++)
+                            {{-- @for($idx = 0; $idx < 6; $idx++)
                                 <label for="{{$idx}}-{{$i}}" class="p-2 rounded-md has-[:checked]:text-white has-[:checked]:bg-blue-400 cursor-pointer border">
                                     <span>{{$idx}}</span>
                                     <input id="{{$idx}}-{{$i}}" type="radio" name="correct_answer-{{$i}}" value={{$idx}} class="hidden">
                                 </label>
-                            @endfor
+                            @endfor --}}
                             {{-- <label for="" class="p-2 rounded-md has-[:checked]:text-white has-[:checked]:bg-blue-400 cursor-pointer border">
                                 <span>5</span>
                                 <input type="radio" class="hidden">
@@ -63,8 +63,8 @@
                                 <span>5</span>
                                 <input type="radio" class="hidden">
                             </label> --}}
-                            {{-- <input type="radio" value="{{$i}}" {{$answer->is_correct ? 'checked' : ''}} name="correct_answer">
-                            <label for="correct_answer">Correct</label> --}}
+                            <input type="radio" value="{{$i}}" {{$answer->is_correct ? 'checked' : ''}} name="correct_answer">
+                            <label for="correct_answer">Correct</label>
                         </div>
                     </div>
                 @empty

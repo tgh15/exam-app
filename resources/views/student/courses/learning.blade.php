@@ -10,7 +10,7 @@
                 <h1 class="font-semibold">Sisa Waktu |  <span id="timer"></span></h1>
             </div>
             @csrf
-            <h1 class="my-4" x-text="choosen_question.question"></h1>
+            <h1 class="my-4" x-html="choosen_question.question"></h1>
             <template x-for="(answer, index) in choosen_question.answers">
                     <label :for="answer.id" class="cursor-pointer hover:bg-blue-50 rounded-md p-4 w-full block border-b-2  has-[:checked]:bg-green-400  has-[:checked]:text-white  has-[:checked]:font-bold">
                         <span x-text="(index+1 + 9).toString(36).toUpperCase() + '. ' + answer.answer"></span>
