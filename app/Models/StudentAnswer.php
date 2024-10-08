@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudentAnswer extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $guarded = [
         'id',
@@ -16,5 +16,9 @@ class StudentAnswer extends Model
 
     public function question(){
         return $this->belongsTo(CourseQuestion::class, 'course_question_id');
+    }
+
+    public function exam_session(){
+        return $this->belongsTo(ExamSession::class, 'exam_session_id');
     }
 }

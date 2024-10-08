@@ -1,4 +1,8 @@
 <x-app-layout>
+    <div class="flex justify-between items-center mb-6">
+        <h6 class="text-lg text-gray-600 font-semibold">{{$course_name}}</h6>
+        <button class="bg-blue-600 p-2 font-bold text-white rounded-md hover:bg-blue-400" id="submit">Selesai</button>
+      </div>
     <div class="grid grid-cols-4 gap-4"  x-data="{questions:{{ Js::from($course)}}, choosen_question: {{Js::from($course[0])}} }">
         <div class="col-span-3 bg-white p-4 rounded-md shadow-sm">
             <div class="flex justify-between border-b-2 pb-2 items-center">
@@ -19,8 +23,23 @@
                 <h1 class="font-bold">Nomor Soal</h1>
             </div>
             <div class="grid grid-cols-4 mt-4 gap-2" >
+                <button class="bg-blue-400 rounded-md hover:bg-blue-300" :disabled="choosen_question.id === questions[0].id"  @click="choosen_question = questions[questions.findIndex(el => el.id == choosen_question.id) - 1]">
+                    <i class="ti ti-chevron-left text-white text-xl"></i>
+                </button>
+                <div class="col-span-2"></div>
+                <button class="bg-blue-400 rounded-md hover:bg-blue-300" :disabled="choosen_question.id === questions[questions.length -1].id" @click="choosen_question = questions[questions.findIndex(el => el.id == choosen_question.id) + 1]">
+                    <i class="ti ti-chevron-right text-white text-xl"></i>
+                </button>
                 <template x-for="(question, index) in questions">
-                    <button href="#" x-on:click="choosen_question = question" x-bind:class="choosen_question.id === question.id ? 'bg-blue-400 hover:bg-blue-600 border-blue-400 text-white' : 'text-blue-400 hover:bg-blue-200'" x-text="index + 1" class="border-2 hover:bg-blue-400 hover:text-white rounded-md font-bold text-center p-2 " ></button>
+                    <button 
+                        x-on:click="choosen_question = question" 
+                        :class="choosen_question.id === question.id ? 
+                            'bg-blue-400 hover:bg-blue-600 border-blue-400 text-white' : 
+                            (JSON.parse(localStorage.getItem('userAnswers'))?.find(el => el.question_id == question.id)?.question_id == question.id ? 
+                                'bg-green-400 text-white' : 
+                                'text-blue-400  hover:bg-blue-200')" 
+                        x-text="index + 1" 
+                        class=" bg-gre border-2 hover:bg-blue-400 hover:text-white rounded-md font-bold text-center p-2 " ></button>
                 </template>
             </div>
         </div>
@@ -63,6 +82,28 @@
                 // Format time as h:m:s
                 timerElement.textContent = `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             }, 1000);
+
+            let submitBtn = document.getElementById('submit')
+            let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            submitBtn.addEventListener('click', async () => {
+                const response = await fetch("{{route('dashboard.learning.course.answer.store', $course_id)}}", {
+                    headers: {
+                  "Content-Type": "application/json",
+                  "Accept": "application/json, text-plain, */*",
+                  "X-Requested-With": "XMLHttpRequest",
+                  "X-CSRF-TOKEN": token
+                  },
+                    method: 'post',
+                    credentials: "same-origin",
+                    body: localStorage.getItem("userAnswers")
+                })
+
+                const json = await response.json()
+                console.log(json)
+
+            })
+
+           
         </script>
     @endpush
 </x-app-layout> 

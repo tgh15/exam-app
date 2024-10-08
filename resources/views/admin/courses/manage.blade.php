@@ -25,7 +25,7 @@
             @forelse ($questions as $index => $question)
                 <div x-data="{ isExpanded: false }" class="m-4 border p-4 rounded-md shadow-sm transition-all">
                     <div class="flex gap-2 items-start justify-between">
-                        <div class="flex gap-4">
+                        <div class="flex gap-4 max-w-4xl">
                             <h1 class="text-md font-bold">{{$index+1}}.</h1>
                             <p>{{$question->question}}</p>
                         </div>
@@ -42,7 +42,7 @@
                     <div x-transition.duration.500ms x-show="isExpanded" class="mt-2 rounded-md border p-2 transition-all">
                         <ul>
                             @forelse($question->answers as $index => $answer)
-                            <li class="{{$answer->is_correct == 1 ? 'font-bold text-green-400' : ''}}" >{{chr(65 + $index)}}. {{$answer->answer}}</li>
+                            <li class="{{$answer->is_correct == 5 ? 'font-bold text-green-400' : ''}}" >{{chr(65 + $index)}}. {{$answer->answer}}</li>
                             @empty
                             @endforelse
                         </ul>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseQuestionController;
 use App\Http\Controllers\CourseStudentController;
+use App\Http\Controllers\ExamSessionController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentAnswerController;
@@ -34,7 +35,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/learning/raport/{course}', [LearningController::class, 'learning_raport'])->middleware('role:student')->name('learning.raport.course');
         Route::get('/learning', [LearningController::class, 'index'])->middleware('role:student')->name('learning.index');
         Route::get('/learning/{course}', [LearningController::class, 'learning'])->middleware('role:student')->name('learning.course');
-        Route::post('/learning/{course}/{question}', [StudentAnswerController::class, 'store'])->middleware('role:student')->name('learning.course.answer.store');
+        Route::get('/learning/{course}/history', [ExamSessionController::class, 'index'])->middleware('role:student')->name('learning.course.history');
+        Route::get('/learning/{course}/history/{exam_session}', [ExamSessionController::class, 'show'])->middleware('role:student')->name('learning.course.history.detail');
+        Route::post('/learning/{course}', [StudentAnswerController::class, 'store'])->middleware('role:student')->name('learning.course.answer.store');
     });
 });
 

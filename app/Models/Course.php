@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $guarded = [
         'id',
@@ -24,5 +24,9 @@ class Course extends Model
     
     public function students(){
         return $this->belongsToMany(User::class, 'course_students', 'course_id', 'user_id');
+    }
+
+    public function exam_sessions(){
+        return $this->hasMany(ExamSession::class, 'course_id', 'id');
     }
 }

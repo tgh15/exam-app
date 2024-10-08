@@ -40,7 +40,6 @@
                             </thead>
                             <tbody>
                                 @forelse($course->students as $index => $student)
-                                    <h1>{{$student->name}}</h1>
                                     <tr>
                                         <td class="p-4 font-semibold text-gray-600 ">{{$index + 1}}</td>
                                         <td class="p-4">

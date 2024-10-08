@@ -64,6 +64,7 @@
     <script src={{asset("assets/libs/@preline/dropdown/index.js")}}></script>
     <script src={{asset("assets/libs/@preline/overlay/index.js")}}></script>
     {{-- <script src={{asset("assets/js/sidebarmenu.js")}}></script> --}}
+    <script src="https://cdn.tiny.cloud/1/fwxbc8l73byh3acjud3x6lfpzh5i9n8drah9njkgsx6tco3d/tinymce/6/tinymce.min.js"></script>
 
 
 

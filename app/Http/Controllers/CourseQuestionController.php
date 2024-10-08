@@ -35,8 +35,9 @@ class CourseQuestionController extends Controller
     {
         //
         $validate = $request->validate([
-            'question' => 'required|string|max:255',
+            'question' => 'required|string',
             'answers' => 'required|array',
+            'question_type' => 'required|string',
             'answers.*' => 'required|string',
             'correct_answer' => 'required|integer'
         ]);
@@ -45,7 +46,8 @@ class CourseQuestionController extends Controller
 
         try {
             $question = $course->questions()->create([
-                'question' => $validate['question']
+                'question' => $validate['question'],
+                'question_type' => $validate['question_type']
             ]);
 
             foreach($request->answers as $index => $answerText){
@@ -96,27 +98,29 @@ class CourseQuestionController extends Controller
     {
         //
         $validate = $request->validate([
-            'question' => 'required|string|max:255',
+            'question' => 'required|string',
             'answers' => 'required|array',
+            'question_type' => 'required|string',
             'answers.*' => 'required|string',
-            'correct_answer' => 'required|integer'
+            'correct_answer.*' => 'required|integer'
         ]);
+        // return response()->json($validate);
         
         DB::beginTransaction();
 
         try {
             
             $courseQuestion->update([
-                'question' => $validate['question']
+                'question' => $validate['question'],
+                'question_type' => $validate['question_type']
             ]);
 
             $courseQuestion->answers()->delete();
 
             foreach($request->answers as $index => $answerText){
-                $isCorrect = ($request->correct_answer == $index);
                 $courseQuestion->answers()->create([
                     'answer' => $answerText,
-                    'is_correct' => $isCorrect
+                    'is_correct' => $request['correct_answer-'.$index]
                 ]);
             }
 

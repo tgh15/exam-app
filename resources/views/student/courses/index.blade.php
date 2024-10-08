@@ -10,7 +10,7 @@
           <p class="mt-1 text-sm text-gray-500">
             {{$course->category->name}}
           </p>
-          <div class="hs-dropdown relative inline-flex [--placement:bottom-right] sm:[--trigger:hover]">
+          {{-- <div class="hs-dropdown relative inline-flex [--placement:bottom-right] sm:[--trigger:hover]">
             <a class="relative hs-dropdown-toggle cursor-pointer align-middle rounded-full">
               <svg class="object-cover w-9 h-9 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -40,7 +40,7 @@
                 </a>
               </div>
             </div>
-          </div>
+          </div> --}}
         </div>
         <div class="card-body">
           <h3 class="text-lg font-medium text-gray-600 mb-2">
@@ -49,12 +49,24 @@
           <p class="text-sm text-gray-500 pe-10">
             With supporting text below as a natural lead-in to additional content.
           </p>
-          @if($course->nextQuestionId)
-          <a class="mt-4 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 "
-            href={{route('dashboard.learning.course', ['course' => $course->id, 'question' => $course->nextQuestionId])}}>
-            Start Test
-          </a>
-          @endif
+          <div >
+            @if(count($course->exam_sessions) !== 0)
+              <a class="mt-4 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 "
+                href={{route('dashboard.learning.course', ['course' => $course->id])}}>
+                Try Again
+              </a>
+              <a class="mt-4 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-md border border-transparent bg-yellow-400 text-white hover:bg-yellow-500 "
+                href={{route('dashboard.learning.course.history', ['course' => $course->id])}}>
+                History
+              </a>
+            @else
+              <a class="mt-4 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 "
+                href={{route('dashboard.learning.course', ['course' => $course->id])}}>
+                Start Test
+              </a>
+            @endif
+
+          </div>
         </div>
       </div>
       @empty
