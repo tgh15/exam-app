@@ -42,7 +42,10 @@ class CourseController extends Controller
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|integer',
-            'cover' => 'required|image|mimes:png,jpg,svg'
+            'price' => 'required|integer',
+            'working_duration' => 'required|integer',
+            'about'=> 'required|string',
+            // 'cover' => 'required|image|mimes:png,jpg,svg'
         ]);
         
         DB::beginTransaction();
@@ -103,6 +106,9 @@ class CourseController extends Controller
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|integer',
+            'price' => 'required|integer',
+            'working_duration' => 'required|integer',
+            'about'=> 'required|string',
             'cover' => 'sometimes|image|mimes:png,jpg,svg'
         ]);
         

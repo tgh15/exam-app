@@ -10,7 +10,7 @@ use App\Http\Controllers\StudentAnswerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
 
 Route::get('/dashboard', function () {
@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/learning/{course}/history', [ExamSessionController::class, 'index'])->middleware('role:student')->name('learning.course.history');
         Route::get('/learning/{course}/history/{exam_session}', [ExamSessionController::class, 'show'])->middleware('role:student')->name('learning.course.history.detail');
         Route::post('/learning/{course}', [StudentAnswerController::class, 'store'])->middleware('role:student')->name('learning.course.answer.store');
+        Route::get('/learning/confirmation/{course}', [LearningController::class, 'confirmation'])->middleware('role:student')->name('learning.course.confirmation');
     });
 });
 

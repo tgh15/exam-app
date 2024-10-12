@@ -6,8 +6,10 @@ use App\Models\Course;
 use App\Models\CourseQuestion;
 use App\Models\ExamSession;
 use App\Models\StudentAnswer;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class LearningController extends Controller
 {
@@ -53,12 +55,44 @@ class LearningController extends Controller
         // dd($course->questions()->with('answers')->get());
 
         // $currentQuestion = CourseQuestion::where('course_id', $course->id)->where('id', $question)->firstOrFail();
-        // return response()->json($course->questions()->with('answers')->get());
-        return view('student.courses.learning', [
-            'course' => $course->questions()->with('answers')->get(),
+        // $exan_session = ExamSession::create([
+        //     'score' => 0,
+        //     'user_id' => Auth::id(),
+        //     'course_id' => $course->id
+        // ]);
+        $questions = $course->questions()->with('answers')->get();
+        foreach($questions as $question){
+            unset($question->discussion);
+            unset($question->deleted_at);
+            unset($question->updated_at);
+            unset($question->created_at);
+            foreach($question->answers as $answer){
+                unset($answer->is_correct);
+                unset($answer->deleted_at);
+                unset($answer->updated_at);
+                unset($answer->created_at);
+            }
+        }
+        $start_time = time();
+        // return response()->json(Cookie::get('start_time'));
+        return response(view('student.courses.learning', [
+            'course' => $questions,
             'course_name' => $course->name,
+            'course_id' => $course->id,
+            'duration' => $course->working_duration,
+            'start_time' => $start_time
+        ]));
+    }
+    
+    public function confirmation(Course $course){
+        // return response()->json($course);
+        return view('student.courses.confirmation', [
+            'question_length' => count($course->questions()->get()),
+            'course_name' => $course->name,
+            'working_duration' => $course->working_duration,
             'course_id' => $course->id
         ]);
+        
     }
 
     public function submit(Request $request, Course $course){

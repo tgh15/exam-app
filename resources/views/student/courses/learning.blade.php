@@ -46,6 +46,13 @@
     </div>
     @push('js')
         <script defer>
+            if(localStorage.getItem('start_time') == null){
+                localStorage.setItem('start_time', {{$start_time}})
+            }
+            if(localStorage.getItem('working_time') === null){
+                localStorage.setItem('working_time', {{$duration}})
+            }
+            // console.log(localStorage.getItem('working_time'))
             let answers = JSON.parse(localStorage.getItem('userAnswers')) || []
             function jawab(question_id, answer_id){
                 objIdx = answers.findIndex(obj => obj.question_id == question_id)
@@ -58,50 +65,69 @@
                 localStorage.setItem('userAnswers', JSON.stringify(answers));
             }
 
-            let targetTime  = Date.now() + 110 * 60 * 1000; // 100 minutes in seconds
+            function countdownTimer(duration) {
+                const endTime = Date.now() + duration * 1000; // Waktu akhir dalam milidetik
 
-            const timerElement = document.getElementById('timer');
+                const interval = setInterval(() => {
+                    const remainingTime = endTime - Date.now(); // Sisa waktu
 
-            const countdown = setInterval(() => {
-                // Calculate the remaining time
-                const now = Date.now();
-                const time = targetTime - now;
+                    if (remainingTime <= 0) {
+                        clearInterval(interval);
+                        document.getElementById('timer').innerText = "Waktu habis!";
+                        submit
+                    } else {
+                        const hours = Math.floor((remainingTime / 1000) / 3600);
+                        const minutes = Math.floor((remainingTime % (1000 * 3600)) / (1000 * 60));
+                        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-                // Check if the countdown is complete
-                if (time <= 0) {
-                    clearInterval(countdown);
-                    timerElement.textContent = "Time's up!";
-                    return;
+                        // Menampilkan waktu dalam format h:m:s
+                        document.getElementById('timer').innerText = 
+                            `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+                        // Simpan waktu akhir di localStorage
+                        localStorage.setItem('endTime', endTime);
+                    }
+                }, 1000); // Setiap 1000 ms (1 detik)
+            }
+
+            // Mengambil waktu akhir dari localStorage
+            const endTime = localStorage.getItem('endTime');
+            if (endTime) {
+                const remainingTime = Math.floor((parseInt(endTime) - Date.now()) / 1000);
+                if (remainingTime > 0) {
+                    countdownTimer(remainingTime); // Mulai timer dari waktu tersisa
+                } else {
+                    document.getElementById('timer').innerText = "Waktu habis!";
+                    submit()
+                    // localStorage.removeItem('endTime'); // Hapus dari localStorage
                 }
-
-                // Calculate hours, minutes, and seconds
-                const hours = Math.floor((time / 1000) / 3600);
-                const minutes = Math.floor((time / 1000 % 3600) / 60);
-                const seconds = Math.floor((time / 1000) % 60);
-
-                // Format time as h:m:s
-                timerElement.textContent = `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }, 1000);
+            } else {
+                const duration = 1 * 60; // 100 menit
+                countdownTimer(duration); // Mulai timer dari durasi awal
+                localStorage.setItem('endTime', Date.now() + duration * 1000); // Simpan waktu akhir
+            }
 
             let submitBtn = document.getElementById('submit')
             let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            submitBtn.addEventListener('click', async () => {
+            submitBtn.addEventListener('click', submit)
+
+            async function submit() {
                 const response = await fetch("{{route('dashboard.learning.course.answer.store', $course_id)}}", {
                     headers: {
-                  "Content-Type": "application/json",
-                  "Accept": "application/json, text-plain, */*",
-                  "X-Requested-With": "XMLHttpRequest",
-                  "X-CSRF-TOKEN": token
-                  },
-                    method: 'post',
-                    credentials: "same-origin",
-                    body: localStorage.getItem("userAnswers")
+                    "Content-Type": "application/json",
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-TOKEN": token
+                    },
+                        method: 'post',
+                        credentials: "same-origin",
+                        body: localStorage.getItem("userAnswers")
                 })
 
                 const json = await response.json()
                 console.log(json)
-
-            })
+                localStorage.removeItem('endTime'); // Hapus dari localStorage
+            }
 
            
         </script>

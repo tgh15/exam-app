@@ -16,6 +16,10 @@
                         {{-- <input :id="answer.id" @change="jawab(choosen_question.id, answer.id)" :checked="JSON.parse(localStorage.getItem('userAnswers'))?.find(el => el.answer_id == answer.id)?.answer_id === answer.id ? true : false" name="answer_id" checked="false" type="radio" :value="answer.id" class="hidden"> --}}
                     </label>
             </template>
+
+            <div class="mt-4">
+                <p x-html="choosen_question.discussion"></p>
+            </div>
         </div>  
         <div class="bg-white p-4 rounded-md shadow-sm">
             <div class="flex justify-between border-b-2 pb-2 items-center">
@@ -32,7 +36,8 @@
                 <template x-for="(question, index) in questions">
                     <button 
                         x-on:click="choosen_question = question; console.log(question.answers.find(el => el.id == question.student_answer))" 
-                        :class="choosen_question.id === question.id ? 
+                        :class="
+                            choosen_question.id === question.id ? 
                             'bg-blue-400 hover:bg-blue-600 border-blue-400 text-white' : 
                              question.student_answer == null ? 'bg-slate-400 text-white' : 
                              question.answers.find(el => el.id == question.student_answer).is_correct ? 'bg-green-500 text-white' : 'bg-red-500 text-white'" 

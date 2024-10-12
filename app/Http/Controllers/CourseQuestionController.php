@@ -23,6 +23,7 @@ class CourseQuestionController extends Controller
      */
     public function create(Course $course)
     {
+
         return view('admin.questions.create', [
             'course' => $course
         ]);
@@ -39,6 +40,7 @@ class CourseQuestionController extends Controller
             'answers' => 'required|array',
             'question_type' => 'required|string',
             'answers.*' => 'required|string',
+            'discussion' => 'required|string',
             'correct_answer' => 'required|integer'
         ]);
         
@@ -47,6 +49,7 @@ class CourseQuestionController extends Controller
         try {
             $question = $course->questions()->create([
                 'question' => $validate['question'],
+                'discussion' => $validate['discussion'],
                 'question_type' => $validate['question_type']
             ]);
 
@@ -103,6 +106,7 @@ class CourseQuestionController extends Controller
             'question' => 'required|string',
             'answers' => 'required|array',
             'question_type' => 'required|string',
+            'discussion' => 'required|string',
             'answers.*' => 'required|string',
             'correct_answer' => 'required|integer'
         ]);
@@ -113,6 +117,7 @@ class CourseQuestionController extends Controller
             
             $courseQuestion->update([
                 'question' => $validate['question'],
+                'discussion' => $validate['discussion'],
                 'question_type' => $validate['question_type']
             ]);
 

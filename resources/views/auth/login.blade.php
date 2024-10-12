@@ -1,8 +1,8 @@
 <x-guest-layout>
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
 
-    <form method="POST" action="{{ route('login') }}">
+    {{-- <form method="POST" action="{{ route('login') }}">
         @csrf
 
         <!-- Email Address -->
@@ -43,5 +43,52 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
-    </form>
+    </form> --}}
+    <div class="flex flex-col w-full  overflow-hidden relative min-h-screen radial-gradient items-center justify-center g-0 px-4">
+                  
+        <div class="justify-center items-center w-full card lg:flex max-w-md ">
+            <div class=" w-full card-body">
+                    <a href="../" class="py-4 block"><img src="../assets/images/logos/dark-logo.svg" alt="" class="mx-auto"/></a>
+                    <p class="mb-4 text-gray-500 text-sm text-center">Your Social Campaigns</p>
+                <!-- form -->
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <!-- username -->
+                    <div class="mb-4">
+                        <x-input-label for="email" :value="__('Email')" />
+                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    </div>
+                    <!-- password -->
+                    <div class="mb-6">
+                        <x-input-label for="password" :value="__('Password')" />
+            
+                        <x-text-input id="password" class="block mt-1 w-full"
+                                        type="password"
+                                        name="password"
+                                        required autocomplete="current-password" />
+            
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    </div>
+                    <!-- checkbox -->
+                      <div class="flex justify-between">
+                        <div class="block mt-4">
+                            <label for="remember_me" class="inline-flex items-center">
+                                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                            </label>
+                        </div>
+                      </div>
+                        <!-- button -->
+                          <div class="grid my-6">
+                            <button type="submit" class="btn py-[10px] text-base text-white font-medium hover:bg-blue-700">Sign In</a>
+                          </div>
+
+                        <div class="flex justify-center gap-2 items-center">
+                            <a href="{{route('register')}}" class="text-sm font-medium text-blue-600 hover:text-blue-700">Create an account</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 </x-guest-layout>

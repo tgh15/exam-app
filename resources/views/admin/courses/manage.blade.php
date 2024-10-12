@@ -11,7 +11,7 @@
             <div class="flex gap-4">
                 <h2 class="">{{$course->category->name}}</h2>
                 |
-                <h2>Durasi Minutes</h2>
+                <h2>{{$course->working_duration}} Minutes</h2>
                 {{-- |
                 <h2>{{\Carbon\Carbon::parse($course->created_at)->format('F j, Y')}}</h2> --}}
                 |

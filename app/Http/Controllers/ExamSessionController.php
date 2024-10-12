@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\QuestionResource;
 use App\Models\Course;
 use App\Models\ExamSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Undefined;
 
 class ExamSessionController extends Controller
 {
@@ -59,11 +61,14 @@ class ExamSessionController extends Controller
                $question['student_answer'] = null;
                $nullAnswer++;
             }else if($question['id'] ==  $exam_session['student_answer'][$index]['course_question_id']){
-                $question['student_answer'] = $exam_session['student_answer'][$index]['answer_id'];
+                $question['student_answer'] = $exam_session['student_answer'][$index]['course_answer_id'];
             }
         }
+        // unset($question["discussion"]);
         // dd($exam_session->student_answer);
+        // return response()->json(QuestionResource::collection($questions));
         // return response()->json($questions);
+        // return QuestionResource::collection($questions);
         return view('student.courses.history.show', [
             'course' => $questions,
             'course_name' => $course->name,

@@ -10,10 +10,10 @@
             <div class="relative w-full min-w-[200px]">
                 <label for="question" class="font-bold">Question</label>
                 <textarea name="question"
-                class="question peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-200 focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+                class="editor peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-200 focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
                 placeholder=" "></textarea>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center mt-2 gap-2">
                 <h1 class="font-bold">Question Section </h1>
                 <label for="twk" class="border p-1 rounded-md has-[:checked]:bg-green-400 has-[:checked]:text-white cursor-pointer ">
                     <span>TWK</span>
@@ -29,20 +29,26 @@
                 </label>
                 <label for="common" class="border p-1 rounded-md has-[:checked]:bg-green-400 has-[:checked]:text-white cursor-pointer">
                     <span>Common</span>
-                    <input id="common" value="COMMON" type="radio" name="question_type" class="hidden">
+                    <input id="common" checked value="COMMON" type="radio" name="question_type" class="hidden">
                 </label>
             </div>
-            <div class="flex flex-col mt-4 gap-2">
-            <h1 for="answer" class="font-bold">Answer</h1>
-            @for($i=0; $i<5; $i++)
-                <div class="flex gap-2 items-center">
-                    <input name="answers[]" type="text" class="rounded-md border-gray-200 w-80" placeholder="answer for option {{chr(65 + $i)}}"> 
-                    <div>
-                        <input type="radio" value="{{$i}}" name="correct_answer">
-                        <label for="correct_answer">Correct</label>
-                    </div>
+            <div class="flex gap-4">
+                <div class="flex flex-col mt-4 gap-2">
+                    <h1 for="answer" class="font-bold">Answer</h1>
+                    @for($i=0; $i<5; $i++)
+                        <div class="flex gap-2 items-center">
+                            <input name="answers[]" type="text" class="rounded-md border-gray-200 w-80" placeholder="answer for option {{chr(65 + $i)}}"> 
+                            <div>
+                                <input type="radio" value="{{$i}}" name="correct_answer">
+                                <label for="correct_answer">Correct</label>
+                            </div>
+                        </div>
+                    @endfor
                 </div>
-                @endfor
+                <div class="flex flex-col mt-4 gap-2">
+                    <h1 for="answer" class="font-bold">Discussion</h1>
+                    <textarea name="discussion" class="editor rounded-md border-gray-200 w-full" name="" id="" cols="100" rows="8"></textarea>
+                </div>
             </div>
         </div>
     </form>    
@@ -50,12 +56,11 @@
     @push('js')
     <script defer>
          tinymce.init({
-            selector:'textarea.question',
+            selector:'textarea.editor',
             plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
             menubar: '', 
             toolbar: "blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media ",
-            width: 900,
-            height: 300,
+            height: 240,
              /* enable title field in the Image dialog*/
             image_title: true,
             /* enable automatic uploads of images represented by blob or data URIs*/

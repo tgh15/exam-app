@@ -38,10 +38,9 @@ class StudentAnswerController extends Controller
         // $validate = $request->validate([
         //     'answer_id' => 'required|exists:course_answers,id'
         // ]);
-        // return response()->json($request);
-
+        
         DB::beginTransaction();
-
+        
         try {
             $student_answers = $request->json()->all();
             $exam_session = ExamSession::create([
@@ -51,15 +50,19 @@ class StudentAnswerController extends Controller
             ]);
             foreach($student_answers as $student_answer){
                 $selectedAnswer = CourseAnswer::find($student_answer['answer_id']);
-                $answerValue = $selectedAnswer->is_correct ? 'correct' :'wrong';
+                $answerValue = $selectedAnswer->id == $student_answer['answer_id']? 'correct' :'wrong';
 
                 $exam_session->student_answer()->create([
                     'user_id' => Auth::id(),
                     'course_question_id' => $student_answer['question_id'],
                     'course_answer_id' => $student_answer['answer_id'],
-                    'answer' => $answerValue
+                    'answer' =>  $answerValue
                 ]);
             }
+
+            // return response()->json($request);
+
+
             // $selectedAnswer = CourseAnswer::find($validate['answer_id']);
             // if ($selectedAnswer->course_question_id != $question) {
             //     $error = ValidationException::withMessages([

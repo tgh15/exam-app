@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("slug");
-            $table->string("cover");
+            $table->string("price");
+            $table->string("working_duration");
+            $table->text("about");
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
