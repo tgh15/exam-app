@@ -28,6 +28,8 @@
         <link href={{asset("assets/landing/css/swiper.css")}} rel="stylesheet" />
         <link href={{asset("assets/landing/css/magnific-popup.css")}} rel="stylesheet" />
         <link href={{asset("assets/landing/css/styles.css")}} rel="stylesheet" />
+        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Favicon  -->
         <link rel="icon" href="images/favicon.png" />
@@ -43,7 +45,8 @@
 
                 <!-- Image Logo -->
                 <a class="inline-block mr-4 py-0.5 text-xl whitespace-nowrap hover:no-underline focus:no-underline" href="index.html">
-                    <img src={{asset("assets/landing/images/logo.svg")}} alt="alternative" class="h-8" />
+                    <img src={{asset("assets/logo.png")}} alt="alternative" class="h-10" />
+                    {{-- <h1 class="font-bold" style="font-size: 1.5rem">Sang<span class="text-blue-400">Tutor</span></h1> --}}
                 </a>
 
                 <button class="background-transparent rounded text-xl leading-none hover:no-underline focus:no-underline lg:hidden lg:text-gray-400" type="button" data-toggle="offcanvas">
@@ -93,36 +96,40 @@
         <!-- end of navigation -->
 
         <!-- Header -->
-        <header id="header" class="header py-28 text-center md:pt-36 lg:text-left xl:pt-44 xl:pb-32">
+        <header id="header" class="py-28 text-center md:pt-36 lg:text-left xl:pt-44 xl:pb-32" style="min-height: 100vh">
             <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
                 <div class="mb-16 lg:mt-32 xl:mt-40 xl:mr-12">
-                    <h1 class="h1-large mb-5">Team management mobile application</h1>
-                    <p class="p-large mb-8">Start getting things done together with your team based on Pavo's revolutionary team management features</p>
-                    <a class="btn-solid-lg" href="#your-link"><i class="fab fa-apple"></i>Download</a>
-                    <a class="btn-solid-lg secondary" href="#your-link"><i class="fab fa-google-play"></i>Download</a>
+                    <h1 class="h1-large mb-5">Bimbel CPNS & PPPK by Sang Tutor</h1>
+                    <p class="p-large mb-8">Tingkatkan peluang lolos CPNS dan PPPK ! 
+                        Bergabunglah sekarang dengan SangTutor dan siapkan diri Anda menghadapi tes CPNS dan PPPK dengan lebih percaya diri dan mudah!</p>
+                    <a class="p-3 bg-blue-400 text-white rounded-lg font-bold hover:bg-blue-500" href="{{route('login')}}"></i>Login</a>
+                    <a class="p-3 bg-blue-400 text-white rounded-lg font-bold hover:bg-blue-500" href="#your-link"></i>Beli Paket</a>
                 </div>
                 <div class="xl:text-right">
-                    <img class="inline rounded-md" src={{asset("assets/landing/images/profile.jpg")}} alt="alternative" />
+                    {{-- <img class="inline rounded-md" src={{asset("assets/landing/images/profile.svg")}} alt="alternative" /> --}}
+                    <dotlottie-player src="https://lottie.host/26f557f7-e770-4355-bc81-324c129a6168/VWLrR1svKu.json" background="transparent" speed="1"  loop autoplay></dotlottie-player>
+                    {{-- <iframe src="https://lottie.host/embed/26f557f7-e770-4355-bc81-324c129a6168/VWLrR1svKu.json"></iframe> --}}
                 </div>
             </div> <!-- end of container -->
         </header> <!-- end of header -->
         <!-- end of header -->
 
+    
 
         <!-- Introduction -->
-        <div class="pt-4 pb-14 text-center">
+        {{-- <div class="pt-4 pb-14 text-center">
             <div class="container px-4 sm:px-8 xl:px-4">
                 <p class="mb-4 text-gray-800 text-3xl leading-10 lg:max-w-5xl lg:mx-auto"> Team management mobile apps don’t get better than Pavo. It’s probably the best app in the world for this purpose. Don’t hesitate to give it a try today and you will fall in love with it</p>
             </div> <!-- end of container -->
-        </div>
+        </div> --}}
         <!-- end of introduction -->
 
 
         <!-- Features -->
         <div id="features" class="cards-1">
-            <div class="container px-4 sm:px-8 xl:px-4">
+            <div class="container w-[60%] px-4 sm:px-8 xl:px-4">
 
-                <!-- Card -->
+                {{-- <!-- Card -->
                 <div class="card">
                     <div class="card-image">
                         <img src={{asset("assets/landing/images/features-icon-1.svg")}} alt="alternative" />
@@ -192,7 +199,30 @@
                         <p class="mb-4">Register the app and get acces to knowledge and ideas from the Pavo online community</p>
                     </div>
                 </div>
-                <!-- end of card -->
+                <!-- end of card --> --}}
+                <div class="grid grid-rows-4 grid-flow-col gap-4">
+                    <div class="rounded-lg shadow-lg sm:flex flex-col justify-center items-center p-4  sm:row-span-4 min-h-90" style="background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);">
+                        <img class="w-72" src="{{asset('assets/landing/images/books.png')}}" alt="">
+                        <div>
+                            <h1 class="text-white font-bold">Video Materi</h1>
+                            <p class="text-white">Tonton video series untuk memahami materi mulai dari dasar hingga lanjutan.</p>
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-lg sm:flex items-center  p-4 sm:col-span-2 sm:row-span-2" style="background-image: linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%);">
+                        <img class="w-72" src="{{asset('assets/landing/images/8867390.png')}}" alt="">
+                        <div>
+                            <h1 class="text-white font-bold text-left">Tryout dan latihan soal</h1>
+                            <p class="text-white text-left">Kerjakan try out dan latihan soal untuk mengasah kemampuan kamu menjawab soal ujian.</p>
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-lg sm:flex items-center  p-4 sm:row-span-2 sm:col-span-2" style="background-image: linear-gradient(to top, #c79081 0%, #dfa579 100%);">
+                        <div>
+                            <h1 class="text-white font-bold text-right">Kelas Bimbel</h1>
+                            <p class="text-white text-right">Gabung bersama kelas bimbel untuk belajar secara interaktif bersama para coach profesional</p>
+                        </div>
+                        <img class="w-72" src="{{asset('assets/landing/images/131[1].png')}}" alt="">
+                    </div>
+                  </div>
 
             </div> <!-- end of container -->
         </div> <!-- end of cards-1 -->

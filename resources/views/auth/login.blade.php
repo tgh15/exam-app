@@ -48,8 +48,8 @@
                   
         <div class="justify-center items-center w-full card lg:flex max-w-md ">
             <div class=" w-full card-body">
-                    <a href="../" class="py-4 block"><img src="../assets/images/logos/dark-logo.svg" alt="" class="mx-auto"/></a>
-                    <p class="mb-4 text-gray-500 text-sm text-center">Your Social Campaigns</p>
+                    <a href="/" class="py-4 block"><img src="{{asset('assets/logo.png')}}" alt="" class="mx-auto w-52"/></a>
+                    {{-- <p class="mb-4 text-gray-500 text-sm text-center">Your Social Campaigns</p> --}}
                 <!-- form -->
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
