@@ -16,6 +16,7 @@
         <meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
         <meta property="og:url" content="" /> <!-- where do you want your post to link to -->
         <meta name="twitter:card" content="summary_large_image" /> <!-- to have large image post format in Twitter -->
+        <meta name="color-scheme" content="light only">
 
         <!-- Webpage Title -->
         <title>Pavo Webpage Title</title>
@@ -27,7 +28,11 @@
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
         <link href={{asset("assets/landing/css/swiper.css")}} rel="stylesheet" />
         <link href={{asset("assets/landing/css/magnific-popup.css")}} rel="stylesheet" />
-        <link href={{asset("assets/landing/css/styles.css")}} rel="stylesheet" />
+        <link href={{asset("assets/landing/css/styles.css")}} rel="stylesheet" /> <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+
         <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -81,11 +86,11 @@
                             <a class="nav-link page-scroll" href="#download">Download</a>
                         </li>
                     </ul>
-                    <span class="flex gap-2">
-                        <a class="no-underline p-2 px-4 bg-blue-700 text-white rounded-md" href={{route('login')}}>
+                    <span class="flex gap-1">
+                        <a class="no-underline p-2 px-4 bg-blue-400 text-white rounded-md" href={{route('login')}}>
                             Login
                         </a>
-                        <a class="no-underline p-2 px-4 bg-blue-700 text-white rounded-md" href={{route('register')}}>
+                        <a class="no-underline p-2 px-4 border-blue-400 text-blue-400 rounded-md" href={{route('register')}}>
                             {{-- <i class="fab fa-android text-indigo-600 hover:text-pink-500 text-xl transition-all duration-200"></i> --}}
                             Daftar
                         </a>
@@ -99,13 +104,14 @@
         <header id="header" class="py-28 text-center md:pt-36 lg:text-left xl:pt-44 xl:pb-32" style="min-height: 100vh">
             <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
                 <div class="mb-16 lg:mt-32 xl:mt-40 xl:mr-12">
-                    <h1 class="h1-large mb-5">Bimbel CPNS & PPPK by Sang Tutor</h1>
-                    <p class="p-large mb-8">Tingkatkan peluang lolos CPNS dan PPPK ! 
+                    <h1 class="h1-large mb-5 font-bold animate__animated  animate__fadeInDown">Bimbel CPNS & PPPK bersama Sang<span class="text-blue-400">Tutor</span></h1>
+                    <p class="p-large mb-8 animate__animated  animate__fadeInDown">Tingkatkan peluang lolos CPNS dan PPPK ! 
                         Bergabunglah sekarang dengan SangTutor dan siapkan diri Anda menghadapi tes CPNS dan PPPK dengan lebih percaya diri dan mudah!</p>
                     <a class="p-3 bg-blue-400 text-white rounded-lg font-bold hover:bg-blue-500" href="{{route('login')}}"></i>Login</a>
                     <a class="p-3 bg-blue-400 text-white rounded-lg font-bold hover:bg-blue-500" href="#your-link"></i>Beli Paket</a>
                 </div>
-                <div class="xl:text-right">
+                <div class="xl:text-right relative">
+                    <div class="absolute bg-white z-50 h-full w-10"></div>
                     {{-- <img class="inline rounded-md" src={{asset("assets/landing/images/profile.svg")}} alt="alternative" /> --}}
                     <dotlottie-player src="https://lottie.host/26f557f7-e770-4355-bc81-324c129a6168/VWLrR1svKu.json" background="transparent" speed="1"  loop autoplay></dotlottie-player>
                     {{-- <iframe src="https://lottie.host/embed/26f557f7-e770-4355-bc81-324c129a6168/VWLrR1svKu.json"></iframe> --}}
@@ -126,7 +132,7 @@
 
 
         <!-- Features -->
-        <div id="features" class="cards-1">
+        <div id="features" class="cards-1 min-h-screen">
             <div class="container w-[60%] px-4 sm:px-8 xl:px-4">
 
                 {{-- <!-- Card -->
@@ -610,7 +616,7 @@
         <!-- Footer -->
         <div class="footer">
             <div class="container px-4 sm:px-8">
-                <h4 class="mb-8 lg:max-w-3xl lg:mx-auto">Pavo is a mobile application for marketing automation and you can reach the team at <a class="text-indigo-600 hover:text-gray-500" href="mailto:email@domain.com">email@domain.com</a></h4>
+                {{-- <h4 class="mb-8 lg:max-w-3xl lg:mx-auto">Pavo is a mobile application for marketing automation and you can reach the team at <a class="text-indigo-600 hover:text-gray-500" href="mailto:email@domain.com">email@domain.com</a></h4> --}}
                 <div class="social-container">
                     <span class="fa-stack">
                         <a href="#your-link">
@@ -618,7 +624,7 @@
                             <i class="fab fa-facebook-f fa-stack-1x"></i>
                         </a>
                     </span>
-                    <span class="fa-stack">
+                    {{-- <span class="fa-stack">
                         <a href="#your-link">
                             <i class="fas fa-circle fa-stack-2x"></i>
                             <i class="fab fa-twitter fa-stack-1x"></i>
@@ -629,7 +635,7 @@
                             <i class="fas fa-circle fa-stack-2x"></i>
                             <i class="fab fa-pinterest-p fa-stack-1x"></i>
                         </a>
-                    </span>
+                    </span> --}}
                     <span class="fa-stack">
                         <a href="#your-link">
                             <i class="fas fa-circle fa-stack-2x"></i>
@@ -650,15 +656,16 @@
 
         <!-- Copyright -->
         <div class="copyright">
-            <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-3">
+            <div class="container px-4 sm:px-8 flex justify-between">
                 <ul class="mb-4 list-unstyled p-small">
                     <li class="mb-2"><a href="article.html">Article Details</a></li>
                     <li class="mb-2"><a href="terms.html">Terms & Conditions</a></li>
                     <li class="mb-2"><a href="privacy.html">Privacy Policy</a></li>
                 </ul>
-                <p class="pb-2 p-small statement">Copyright © <a href="#your-link" class="no-underline">Your name</a></p>
+                <p class="pb-2 p-small statement">Copyright © <a href="#your-link" class="no-underline">Sang Tutor</a></p>
 
-                <p class="pb-2 p-small statement">Distributed by :<a href="https://themewagon.com/" class="no-underline">Themewagon</a></p>
+                <img src={{asset("assets/logo.png")}} alt="alternative" class="h-10" />
+                    
             </div> 
 
         <!-- end of container -->
