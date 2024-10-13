@@ -241,7 +241,7 @@
                 </div> <!-- end of col -->
                 <div class="lg:col-span-7">
                     <div class="xl:ml-14">
-                        <img class="inline" src={{asset("assets/landing/images/details-1.jpg")}} alt="alternative" />
+                        <img class="inline" src={{asset("assets/landing/images/profile.png")}} alt="alternative" />
                     </div>
                 </div> <!-- end of col -->
             </div> <!-- end of container -->
