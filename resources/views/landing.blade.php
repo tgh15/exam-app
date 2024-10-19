@@ -6,7 +6,7 @@
 
         <!-- SEO Meta Tags -->
         <meta name="description" content="Pavo is a mobile app Tailwind CSS HTML template created to help you present benefits, features and information about mobile apps in order to convince visitors to download them" />
-        <meta name="author" content="Your name" />
+        <meta name="author" content="Sang Tutor" />
 
         <!-- OG Meta Tags to improve the way the post looks when you share the page on Facebook, Twitter, LinkedIn -->
         <meta property="og:site_name" content="" /> <!-- website name -->
@@ -19,7 +19,7 @@
         <meta name="color-scheme" content="light only">
 
         <!-- Webpage Title -->
-        <title>Pavo Webpage Title</title>
+        <title>Sang Tutor</title>
 
         <!-- Styles -->
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -38,6 +38,11 @@
 
         <!-- Favicon  -->
         <link rel="icon" href="images/favicon.png" />
+        <style>
+            .description> ul{
+                list-style: decimal !important
+            }
+        </style>
     </head>
     <body data-spy="scroll" data-target=".fixed-top">
 
@@ -238,11 +243,9 @@
         <!-- Details 1 -->
         <div id="details" class="pt-12 pb-16 lg:pt-16">
             <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12">
-                <div class="lg:col-span-5">
-                    <div class="mb-16 lg:mb-0 xl:mt-16">
-                        <h2 class="mb-6">Results driven ground breaking technology</h2>
-                        <p class="mb-4">Based on our team's extensive experience in developing line of business applications and constructive customer feedback we reached a new level of revenue.</p>
-                        <p class="mb-4">We enjoy helping small and medium sized tech businesses take a shot at established Fortune 500 companies</p>
+                <div class="lg:col-span-5 flex flex-row items-center">
+                    <div>
+                        <h1 class="text-4xl">"Raih impian menjadi ASN dengan persiapan terbaik!"</h1>
                     </div>
                 </div> <!-- end of col -->
                 <div class="lg:col-span-7">
@@ -496,40 +499,26 @@
                 <h2 class="mb-2.5 text-white lg:max-w-xl lg:mx-auto">Pricing options for all budgets</h2>
                 <p class="mb-16 text-white lg:max-w-3xl lg:mx-auto"> Our pricing plans are setup in such a way that any user can start enjoying Pavo without worrying so much about costs. They are flexible and work for any type of industry </p>
 
+                @forelse($packages as $package)
                 <!-- Card-->
-                <div class="card">
+                <div class="card p-2">
                     <div class="card-body">
-                        <div class="card-title">STANDARD</div>
-                        <div class="price"><span class="currency">$</span><span class="value">29</span></div>
-                        <div class="frequency">monthly</div>
-                        <p>This basic package covers the marketing needs of small startups</p>
-                        <ul class="list mb-7 space-y-2 text-left">
-                            <li class="flex">
-                                <i class="fas fa-chevron-right"></i>
-                                <div>List building and relations</div>
-                            </li>
-                            <li class="flex">
-                                <i class="fas fa-chevron-right"></i>
-                                <div>Seamless platform integration</div>
-                            </li>
-                            <li class="flex">
-                                <i class="fas fa-chevron-right"></i>
-                                <div>Great performance on devices</div>
-                            </li>
-                            <li class="flex">
-                                <i class="fas fa-chevron-right"></i>
-                                <div>Community support and videos</div>
-                            </li>
-                        </ul>
+                        <div class="card-title">{{$package->name}}</div>
+                        <h1 class="text-xl text-gray-500">Rp. <span class=" line-through">{{number_format($package->price_before)}}</span></h1>
+                        <h1 class="text-4xl">Rp. <span >{{number_format($package->price)}}</span></h1>
+                        <div class="mt-4 max-h-60 description overflow-hidden">
+                            {!!$package->description!!}
+                        </div>
                         <div class="button-wrapper">
-                            <a class="btn-solid-reg page-scroll" href="#download">Download</a>
+                            <a class="btn-solid-reg page-scroll" href="#download">Beli Paket</a>
                         </div>
                     </div>
                 </div> <!-- end of card -->
                 <!-- end of card -->
-
+                @empty
+                @endforelse
                 <!-- Card-->
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-body">
                         <div class="card-title">ADVANCED</div>
                         <div class="price"><span class="currency">$</span><span class="value">39</span></div>
@@ -557,11 +546,12 @@
                             <a class="btn-solid-reg page-scroll" href="#download">Download</a>
                         </div>
                     </div>
-                </div> <!-- end of card -->
+                </div>  --}}
+                <!-- end of card -->
                 <!-- end of card -->
 
                 <!-- Card-->
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-body">
                         <div class="card-title">COMPLETE</div>
                         <div class="price"><span class="currency">$</span><span class="value">49</span></div>
@@ -589,7 +579,8 @@
                             <a class="btn-solid-reg page-scroll" href="#download">Download</a>
                         </div>
                     </div>
-                </div> <!-- end of card -->
+                </div>  --}}
+                <!-- end of card -->
                 <!-- end of card -->
 
             </div> <!-- end of container -->

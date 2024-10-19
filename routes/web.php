@@ -1,17 +1,18 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CoursePackageController;
 use App\Http\Controllers\CourseQuestionController;
 use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\ExamSessionController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LearningController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentAnswerController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('landing');
-});
+Route::get('/', [LandingController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -24,6 +25,10 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('dashboard')->name('dashboard.')->group(function(){
         Route::resource('courses', CourseController::class)->middleware('role:teacher');
+
+        Route::resource('packages', PackageController::class)->middleware('role:teacher');
+
+        Route::post('/add_course_to_package', [CoursePackageController::class, 'addCourse'])->middleware('role:teacher')->name('add_course_to_package');
 
         Route::get('/course/question/create/{course}', [CourseQuestionController::class, 'create'])->middleware('role:teacher')->name('course.create.question');
         Route::post('/course/question/save/{course}', [CourseQuestionController::class, 'store'])->middleware('role:teacher')->name('course.create.question.store');

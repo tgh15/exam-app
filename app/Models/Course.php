@@ -29,4 +29,8 @@ class Course extends Model
     public function exam_sessions(){
         return $this->hasMany(ExamSession::class, 'course_id', 'id');
     }
+
+    public function packages(){
+        return $this->belongsToMany(Package::class, 'courses_packages');
+    }
 }

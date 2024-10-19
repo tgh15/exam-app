@@ -34,6 +34,12 @@
                                 @role('teacher')
                                 <li class="sidebar-item">
                                     <a class="sidebar-link gap-3 py-2 px-3  rounded-md w-full flex items-center hover:text-blue-600 hover:bg-blue-100"
+                                        href={{route("dashboard.packages.index")}}>
+                                        <i class="ti ti-article  text-xl"></i> <span>Paket</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link gap-3 py-2 px-3  rounded-md w-full flex items-center hover:text-blue-600 hover:bg-blue-100"
                                         href={{route("dashboard.courses.index")}}>
                                         <i class="ti ti-article  text-xl"></i> <span>Courses</span>
                                     </a>
