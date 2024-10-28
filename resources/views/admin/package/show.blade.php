@@ -34,8 +34,8 @@
                       </div>
                 </div>
                 <div class="flex justify-between gap-2">
-                    <a href="{{route('dashboard.courses.show', $course)}}" class="p-2 w-full rounded-md bg-blue-400 text-white text-center font-bold">Lihat</a>
-                    <a href="" class="p-2 w-full rounded-md bg-red-400 text-white text-center font-bold">Hapus</a>
+                    <a href="{{route('dashboard.courses.show', $course)}}" class="px-2 py-1 w-full rounded-md bg-blue-400 text-white text-center font-bold">Lihat</a>
+                    <a href="" class="px-2 py-1 w-full rounded-md bg-red-400 text-white text-center font-bold">Hapus</a>
                 </div>
             </div>
         @empty

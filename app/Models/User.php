@@ -46,8 +46,13 @@ class User extends Authenticatable
         ];
     }
 
+
     public function courses(){
         return $this->belongsToMany(Course::class, 'course_students', 'user_id', 'course_id');
+    }
+
+    public function packages(){
+        return $this->belongsToMany(Package::class, 'package_students', 'user_id', 'package_id');
     }
 
     public function exam_sessions(){

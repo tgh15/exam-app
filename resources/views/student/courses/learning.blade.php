@@ -1,24 +1,28 @@
-<x-app-layout>
+<x-student-layout>
     <div class="flex justify-between items-center mb-6">
         <h6 class="text-lg text-gray-600 font-semibold">{{$course_name}}</h6>
-        <button class="bg-blue-600 p-2 font-bold text-white rounded-md hover:bg-blue-400" id="submit">Selesai</button>
+        <button class="bg-blue-400 p-2 font-bold text-white rounded-md hover:bg-blue-600" id="submit">Selesai</button>
       </div>
     <div class="grid grid-cols-4 gap-4"  x-data="{questions:{{ Js::from($course)}}, choosen_question: {{Js::from($course[0])}} }">
-        <div class="col-span-3 bg-white p-4 rounded-md shadow-sm">
+        <div class="col-span-3 bg-white p-4 rounded-md shadow-md border">
             <div class="flex justify-between border-b-2 pb-2 items-center">
                 <h1 class="font-bold">Soal No. <span x-text="questions.findIndex(el => el.id === choosen_question.id) + 1"></span></h1>
-                <h1 class="font-semibold">Sisa Waktu |  <span id="timer"></span></h1>
+                
             </div>
             @csrf
-            <h1 class="my-4" x-html="choosen_question.question"></h1>
+            <h1 class="my-4 font-semibold" x-html="choosen_question.question"></h1>
             <template x-for="(answer, index) in choosen_question.answers">
-                    <label :for="answer.id" class="cursor-pointer hover:bg-blue-50 rounded-md p-4 w-full block border-b-2  has-[:checked]:bg-green-400  has-[:checked]:text-white  has-[:checked]:font-bold">
-                        <span x-text="(index+1 + 9).toString(36).toUpperCase() + '. ' + answer.answer"></span>
+                    <label :for="answer.id" class="cursor-pointer mt-2 bg-gray-100 hover:bg-green-100 rounded-lg p-4 w-full block border-b-2  has-[:checked]:bg-green-400  has-[:checked]:text-white  has-[:checked]:font-bold">
+                        <span class="font-semibold" x-text="(index+1 + 9).toString(36).toUpperCase() + '. ' + answer.answer"></span>
                         <input :id="answer.id" @change="jawab(choosen_question.id, answer.id)" :checked="JSON.parse(localStorage.getItem('userAnswers'))?.find(el => el.answer_id == answer.id)?.answer_id === answer.id ? true : false" name="answer_id" checked="false" type="radio" :value="answer.id" class="hidden">
                     </label>
             </template>
         </div>  
-        <div class="bg-white p-4 rounded-md shadow-sm">
+        <div class="flex flex-col gap-4">
+            <div class="bg-white p-4 rounded-md shadow-md border">
+                <h1 class="font-semibold">Sisa Waktu |  <span id="timer"></span></h1>
+            </div>
+        <div class="bg-white p-4 rounded-md shadow-md border">
             <div class="flex justify-between border-b-2 pb-2 items-center">
                 <h1 class="font-bold">Nomor Soal</h1>
             </div>
@@ -43,6 +47,7 @@
                 </template>
             </div>
         </div>
+    </div>
     </div>
     @push('js')
         <script defer>
@@ -132,4 +137,4 @@
            
         </script>
     @endpush
-</x-app-layout> 
+</x-student-layout> 

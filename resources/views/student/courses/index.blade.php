@@ -1,14 +1,14 @@
-<x-app-layout>
+<x-student-layout>
     <div class="flex justify-between items-center mb-6">
       <h6 class="text-lg text-gray-600 font-semibold">My Courses</h6>
     </div>
     <div class="grid grid-cols-3 gap-4">
-      @forelse($my_courses as $course)
+      @forelse($my_packages as $package)
       {{-- {{dd($course->nextQuestionId)}} --}}
       <div class="card">
         <div class="py-4 px-7 flex justify-between">
           <p class="mt-1 text-sm text-gray-500">
-            {{$course->category->name}}
+            {{-- {{$course->category->name}} --}}
           </p>
           {{-- <div class="hs-dropdown relative inline-flex [--placement:bottom-right] sm:[--trigger:hover]">
             <a class="relative hs-dropdown-toggle cursor-pointer align-middle rounded-full">
@@ -44,13 +44,13 @@
         </div>
         <div class="card-body">
           <h3 class="text-lg font-medium text-gray-600 mb-2">
-            {{$course->name}}
+            {{$package->name}}
           </h3>
           <p class="text-sm text-gray-500 pe-10">
             With supporting text below as a natural lead-in to additional content.
           </p>
           <div >
-            @if(count($course->exam_sessions) !== 0)
+            {{-- @if(count($course->exam_sessions) !== 0)
               <a class="mt-4 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 "
                 href={{route('dashboard.learning.course.confirmation', ['course' => $course->id])}}>
                 Try Again
@@ -64,12 +64,16 @@
                 href={{route('dashboard.learning.course', ['course' => $course->id])}}>
                 Start Test
               </a>
-            @endif
-
+              @endif --}}
+              
+              <a class="mt-4 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 "
+              href={{route('dashboard.student.package', ['package' => $package->id])}}>
+                Buka
+              </a>
           </div>
         </div>
       </div>
       @empty
       @endforelse
     </div>
-  </x-app-layout>
+  </x-student-layout>

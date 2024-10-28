@@ -8,13 +8,13 @@
         </div>
         <div class="border border-gray-200 bg-white p-4 rounded-md">
             <div class="relative w-full min-w-[200px]">
-                <label for="question" class="font-bold">Question</label>
+                <label for="question" class="font-bold">Pertanyaan</label>
                 <textarea name="question"
                 class="editor peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-200 focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
                 placeholder=" "></textarea>
             </div>
             <div class="flex items-center mt-2 gap-2">
-                <h1 class="font-bold">Question Section </h1>
+                <h1 class="font-bold">Tipe Pertanyaan </h1>
                 <label for="twk" class="border p-1 rounded-md has-[:checked]:bg-green-400 has-[:checked]:text-white cursor-pointer ">
                     <span>TWK</span>
                     <input id="twk" value="TWK" type="radio"  name="question_type" class="hidden">
@@ -34,19 +34,20 @@
             </div>
             <div class="flex gap-4">
                 <div class="flex flex-col mt-4 gap-2">
-                    <h1 for="answer" class="font-bold">Answer</h1>
+                    <h1 for="answer" class="font-bold">Pilihan Jawaban</h1>
                     @for($i=0; $i<5; $i++)
                         <div class="flex gap-2 items-center">
-                            <input name="answers[]" type="text" class="rounded-md border-gray-200 w-80" placeholder="answer for option {{chr(65 + $i)}}"> 
-                            <div>
-                                <input type="radio" value="{{$i}}" name="correct_answer">
-                                <label for="correct_answer">Correct</label>
-                            </div>
+                            <h1 class="font-bold">{{chr(65 + $i)}}. </h1>
+                            <input name="answers[]" type="text" class="rounded-md border-gray-200 w-80"> 
+                            @for($j=0; $j<=5; $j++)
+                                <label for="correct_answer_{{$i}}_{{$j}}" class="has-[:checked]:bg-blue-400 has-[:checked]:text-white cursor-pointer p-2 rounded-md font-semibold border">
+                                    <input type="radio" value="{{$j}}" name="{{$i}}" id="correct_answer_{{$i}}_{{$j}}" class="hidden">{{$j}}</label>
+                            @endfor
                         </div>
                     @endfor
                 </div>
-                <div class="flex flex-col mt-4 gap-2">
-                    <h1 for="answer" class="font-bold">Discussion</h1>
+                <div class="flex flex-col mt-4 gap-2 w-full">
+                    <h1 for="answer" class="font-bold">Pembahasan</h1>
                     <textarea name="discussion" class="editor rounded-md border-gray-200 w-full" name="" id="" cols="100" rows="8"></textarea>
                 </div>
             </div>

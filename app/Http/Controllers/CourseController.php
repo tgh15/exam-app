@@ -42,7 +42,6 @@ class CourseController extends Controller
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|integer',
-            'price' => 'required|integer',
             'working_duration' => 'required|integer',
             'about'=> 'required|string',
             // 'cover' => 'required|image|mimes:png,jpg,svg'
@@ -51,10 +50,6 @@ class CourseController extends Controller
         DB::beginTransaction();
 
         try {
-            if($request->hasFile('cover')){
-                $coverPath = $request->file('cover')->store('product_cover', 'public');
-                $validate['cover'] = $coverPath;
-            }
             $validate['slug'] = Str::slug($request->name);
             $newCourse = Course::create($validate);
 
@@ -106,19 +101,13 @@ class CourseController extends Controller
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|integer',
-            'price' => 'required|integer',
             'working_duration' => 'required|integer',
             'about'=> 'required|string',
-            'cover' => 'sometimes|image|mimes:png,jpg,svg'
         ]);
         
         DB::beginTransaction();
 
         try {
-            if($request->hasFile('cover')){
-                $coverPath = $request->file('cover')->store('product_cover', 'public');
-                $validate['cover'] = $coverPath;
-            }
             $validate['slug'] = Str::slug($request->name);
             $course->update($validate);
 

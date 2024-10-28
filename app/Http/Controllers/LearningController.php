@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseQuestion;
 use App\Models\ExamSession;
+use App\Models\Package;
 use App\Models\StudentAnswer;
 use DateTime;
 use Illuminate\Http\Request;
@@ -15,10 +16,10 @@ class LearningController extends Controller
 {
     public function index() {
         $user = Auth::user();
-        $my_courses = $user->courses()->with('exam_sessions')->with('category')->get();
+        $my_packages = $user->packages()->get();
         // $exam = ExamSession::where('user_id', $user->id)->get();
         $exam = $user->exam_sessions()->with('student_answer')->first();
-        // return response()->json($my_courses);
+        // return response()->json($my_packages);
 
         // foreach($my_courses as $course){
         //     $totoalQuestionCount = $course->questions()->count();
@@ -40,16 +41,21 @@ class LearningController extends Controller
         //     }
         // }
         return view("student.courses.index",[
-            'my_courses' => $my_courses
+            'my_packages' => $my_packages
         ]);
     }
 
-    public function learning(Course $course){
+    public function learning(Package $package, Course $course){
         $user = Auth::user();
+        // $user->packages()->where('package_id', $package->id)
+        // return response()->json( $user->packages()->with('courses', function($query){
+        //     $query->where('course_id', $course->id);
+        // })->get());
+        // return response()->json();
+        $isEnrolledPackage = $user->packages()->where('package_id', $package->id)->exists();
+        // $isEnrolledCourse = $user->packages()->courses()->where('course_id', $course->id)->exists();
 
-        $isEnrolled = $user->courses()->where('course_id', $course->id)->exists();
-
-        if(!$isEnrolled){
+        if(!$isEnrolledPackage && !$isEnrolledCourse){
             abort(404);
         }
         // dd($course->questions()->with('answers')->get());
@@ -74,7 +80,6 @@ class LearningController extends Controller
             }
         }
         $start_time = time();
-        // return response()->json(Cookie::get('start_time'));
         return response(view('student.courses.learning', [
             'course' => $questions,
             'course_name' => $course->name,

@@ -35,14 +35,15 @@ class CourseQuestionController extends Controller
     public function store(Request $request, Course $course)
     {
         //
+
         $validate = $request->validate([
             'question' => 'required|string',
             'answers' => 'required|array',
             'question_type' => 'required|string',
             'answers.*' => 'required|string',
             'discussion' => 'required|string',
-            'correct_answer' => 'required|integer'
         ]);
+        // return response()->json($request);
         
         DB::beginTransaction();
 
@@ -57,7 +58,7 @@ class CourseQuestionController extends Controller
                 $isCorrect = ($request->correct_answer == $index);
                 $question->answers()->create([
                     'answer' => $answerText,
-                    'is_correct' => $isCorrect
+                    'is_correct' => $request[$index]
                 ]);
             }
 
@@ -88,7 +89,7 @@ class CourseQuestionController extends Controller
     {
         //
         $course = $courseQuestion->course;
-        // return response()->json($courseQuestion);
+        // return response()->json($courseQuestion->with('answers')->get());
         return view('admin.questions.edit', [
             'courseQuestion' => $courseQuestion,
             'course' => $course
@@ -108,7 +109,7 @@ class CourseQuestionController extends Controller
             'question_type' => 'required|string',
             'discussion' => 'required|string',
             'answers.*' => 'required|string',
-            'correct_answer' => 'required|integer'
+            // 'correct_answer' => 'required|integer'
         ]);
         
         DB::beginTransaction();
@@ -127,7 +128,7 @@ class CourseQuestionController extends Controller
                 $isCorrect = ($request->correct_answer == $index);
                 $courseQuestion->answers()->create([
                     'answer' => $answerText,
-                    'is_correct' =>  $isCorrect
+                    'is_correct' => $request[$index]
                 ]);
             }
 

@@ -10,13 +10,17 @@ use App\Http\Controllers\LearningController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentAnswerController;
+use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\Transaction;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['role:teacher', 'verified'])->name('dashboard');
+
+Route::get('/dashboards', [StudentDashboardController::class, 'index'])->middleware(['role:student', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,11 +43,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/learning/finished/{course}', [LearningController::class, 'learning_finished'])->middleware('role:student')->name('learning.finished.course');
         Route::get('/learning/raport/{course}', [LearningController::class, 'learning_raport'])->middleware('role:student')->name('learning.raport.course');
         Route::get('/learning', [LearningController::class, 'index'])->middleware('role:student')->name('learning.index');
-        Route::get('/learning/{course}', [LearningController::class, 'learning'])->middleware('role:student')->name('learning.course');
+        Route::get('/learning/{package}/{course}', [LearningController::class, 'learning'])->middleware('role:student')->name('learning.course');
         Route::get('/learning/{course}/history', [ExamSessionController::class, 'index'])->middleware('role:student')->name('learning.course.history');
         Route::get('/learning/{course}/history/{exam_session}', [ExamSessionController::class, 'show'])->middleware('role:student')->name('learning.course.history.detail');
         Route::post('/learning/{course}', [StudentAnswerController::class, 'store'])->middleware('role:student')->name('learning.course.answer.store');
         Route::get('/learning/confirmation/{course}', [LearningController::class, 'confirmation'])->middleware('role:student')->name('learning.course.confirmation');
+
+        Route::get('package/{package}', [PackageController::class, 'show'])->middleware('role:student')->name('student.package');
+
+        Route::post('transaction/', [Transaction::class, 'checkout'])->middleware('role:student')->name('student.checkout');
     });
 });
 

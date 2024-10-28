@@ -58,5 +58,9 @@
     </div>
     @empty
     @endforelse
+
+    
   </div>
+  </div>
+  
 </x-app-layout>

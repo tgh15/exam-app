@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Package;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -64,6 +65,15 @@ class PackageController extends Controller
      */
     public function show(Package $package)
     {
+        if(Auth::user()->roles[0]->name == 'student'){
+            $user = Auth::user();
+            $my_package = $user->packages()->where('package_id', $package->id)->with('courses')->first();
+            // return response()->json($my_package);
+            return view('student.package.index', [
+                'my_package' => $my_package
+            ]);
+        }
+
         $courses = $package->courses()->get();
         return view('admin.package.show', [
             'courses' => $courses,
