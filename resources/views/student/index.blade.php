@@ -65,7 +65,8 @@
     </div>
 
     @push('js')
-    <script src="https://app.stg.midtrans.com/snap/snap.js" data-client-key="{{env('MIDTRANS_CLIENT_KEY')}}"></script>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{env('MIDTRANS_CLIENT_KEY')}}"></script>
+    {{-- <script src="https://app.stg.midtrans.com/snap/snap.js" data-client-key="{{env('MIDTRANS_CLIENT_KEY')}}"></script> --}}
     <script>
         let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         document.getElementById('pay-button').onclick = async function(){
@@ -83,14 +84,17 @@
             snap.pay(data, {
                 // Optional
                 onSuccess: function(result){
+                    console.log(result)
                     /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                 },
                 // Optional
                 onPending: function(result){
+                    console.log(result)
                     /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                 },
                 // Optional
                 onError: function(result){
+                    console.log(result)
                     /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                 }})
             

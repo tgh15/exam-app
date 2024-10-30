@@ -97,7 +97,7 @@
 
             // Mengambil waktu akhir dari localStorage
             const endTime = localStorage.getItem('endTime');
-            if (endTime) {
+            if (endTime) {                                                                  
                 const remainingTime = Math.floor((parseInt(endTime) - Date.now()) / 1000);
                 if (remainingTime > 0) {
                     countdownTimer(remainingTime); // Mulai timer dari waktu tersisa

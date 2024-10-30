@@ -12,7 +12,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentAnswerController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\Transaction;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+
+if (App::environment('production')) {
+    URL::forceScheme('https');
+}
 
 Route::get('/', [LandingController::class, 'index']);
 
